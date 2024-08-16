@@ -6,7 +6,7 @@ const rateLimit = require("express-rate-limit");
 const short = require("short-uuid");
 const { Op } = require("sequelize");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const translator = short();
 
 app.use(cors());
@@ -399,7 +399,7 @@ const updateViewCounts = async () => {
   }
 };
 
-app.get("/names", async (req, res) => {
+app.get("/api/collection-names", async (req, res) => {
   const names = await Collection.findAll({
     attributes: ["title"],
   });
@@ -413,5 +413,3 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-module.exports = app;
