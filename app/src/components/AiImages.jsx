@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
 import short from "short-uuid";
+import { backend_url } from "../../config";
 
 const AiImages = () => {
   const [media, setMedia] = useState([]);
@@ -25,9 +26,7 @@ const AiImages = () => {
     try {
       console.log("Fetching hot content...");
       const response = await axios.get(
-        `http://localhost:3000/api/ai-images${
-          cursor ? `?cursor=${cursor}` : ""
-        }`
+        `${backend_url}/api/ai-images${cursor ? `?cursor=${cursor}` : ""}`
       );
       if (!response.data.media || response.data.media.length === 0) {
         console.log("No content available");

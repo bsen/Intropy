@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
+import { backend_url } from "../../config";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +21,7 @@ const Search = () => {
     setError(null);
 
     try {
-      const response = await axios.post(`http://localhost:3000/api/search`, {
+      const response = await axios.post(`${backend_url}/api/search`, {
         query: searchQuery,
       });
 

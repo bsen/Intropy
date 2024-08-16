@@ -3,6 +3,7 @@ import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
+import { backend_url } from "../../config";
 
 const Collections = () => {
   const [collections, setCollections] = useState([]);
@@ -22,9 +23,7 @@ const Collections = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/collections${
-          cursor ? `?cursor=${cursor}` : ""
-        }`
+        `${backend_url}/api/collections${cursor ? `?cursor=${cursor}` : ""}`
       );
       if (
         !response.data.collections ||

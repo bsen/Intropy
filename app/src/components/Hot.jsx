@@ -3,6 +3,7 @@ import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
+import { backend_url } from "../../config";
 
 const HotContent = () => {
   const [media, setMedia] = useState([]);
@@ -23,7 +24,7 @@ const HotContent = () => {
     try {
       console.log("Fetching hot content...");
       const response = await axios.get(
-        `http://localhost:3000/api/hot${cursor ? `?cursor=${cursor}` : ""}`
+        `${backend_url}/api/hot${cursor ? `?cursor=${cursor}` : ""}`
       );
       if (!response.data.media || response.data.media.length === 0) {
         console.log("No content available");

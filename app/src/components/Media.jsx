@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
+import { backend_url } from "../../config";
+
 import {
   HiOutlineEye,
   HiOutlineChevronLeft,
@@ -43,9 +45,7 @@ const Media = () => {
   useEffect(() => {
     const fetchMediaDetail = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/media/${id}`
-        );
+        const response = await axios.get(`${backend_url}/api/media/${id}`);
         console.log("Media data ----?>?>>>>>", response.data);
         setMedia(response.data);
       } catch (err) {

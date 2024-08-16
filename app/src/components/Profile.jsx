@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
 import { HiOutlineEye, HiOutlinePhotograph } from "react-icons/hi";
 import short from "short-uuid";
+import { backend_url } from "../../config";
 
 const Profile = () => {
   const { slug } = useParams();
@@ -36,7 +37,7 @@ const Profile = () => {
   const fetchCollectionProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/collection/${slug}/profile`
+        `${backend_url}/api/collection/${slug}/profile`
       );
       setCollection(response.data);
     } catch (err) {
@@ -53,7 +54,7 @@ const Profile = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/collection/${slug}/media${
+        `${backend_url}/api/collection/${slug}/media${
           cursor ? `?cursor=${cursor}` : ""
         }`
       );

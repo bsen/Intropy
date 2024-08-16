@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { backend_url } from "../../config";
 
 import {
   HiFire,
@@ -23,7 +24,7 @@ function Layout({ children }) {
 
   const fetchTopModels = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/top-models");
+      const response = await axios.get(`${backend_url}/api/top-models`);
       console.log(response.data);
       setTopModels(response.data);
     } catch (error) {
