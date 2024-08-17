@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
 import { backend_url } from "../../config";
+import CircularLoading from "../tools/Loader";
 
 const HotContent = () => {
   const [media, setMedia] = useState([]);
@@ -104,11 +105,9 @@ const HotContent = () => {
           ))}
         </div>
       )}
-      {loading && (
-        <div className="text-center text-gray-400 text-xs font-thin mt-2">
-          Loading more...
-        </div>
-      )}
+
+      {loading && <CircularLoading />}
+
       <div ref={ref} style={{ height: "10px" }}></div>
     </div>
   );

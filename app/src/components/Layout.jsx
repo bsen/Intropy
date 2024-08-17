@@ -130,29 +130,25 @@ function Layout({ children }) {
         </div>
       </div>
 
-      {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Mobile Header */}
         <header className="h-12 flex items-center justify-between px-4 bg-white shadow-md lg:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-gray-600 focus:outline-none focus:text-rose-500"
+            className="text-rose-500"
           >
             <HiMenu className="w-6 h-6" />
           </button>
           <h1 className="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600">
             Xnudes
           </h1>
-          <div className="w-6"></div> {/* Spacer for centering */}
+          <div className="w-6"></div>
         </header>
 
-        {/* Main Content */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gdark">
-          <div className="container mx-auto py-4">{children}</div>
+          <div className="container mx-auto py-2 md:py-0">{children}</div>
         </main>
       </div>
 
-      {/* Overlay */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"

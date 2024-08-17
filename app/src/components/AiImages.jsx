@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
 import short from "short-uuid";
 import { backend_url } from "../../config";
+import CircularLoading from "../tools/Loader";
 
 const AiImages = () => {
   const [media, setMedia] = useState([]);
@@ -91,11 +92,9 @@ const AiImages = () => {
           ))}
         </div>
       )}
-      {loading && (
-        <div className="text-center text-gray-400 text-xs font-thin mt-4 sm:mt-6 md:mt-8">
-          Loading more...
-        </div>
-      )}
+
+      {loading && <CircularLoading />}
+
       <div ref={ref} style={{ height: "10px" }}></div>
     </div>
   );

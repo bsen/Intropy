@@ -15,7 +15,7 @@ const FullScreenModal = ({ isOpen, onClose, imageUrl }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
       <div className="relative w-full h-full">
         <img
           src={imageUrl}
@@ -24,7 +24,7 @@ const FullScreenModal = ({ isOpen, onClose, imageUrl }) => {
         />
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-colors"
+          className="absolute top-4 right-4 text-rose-500 bg-rose-50 rounded-full p-2"
           aria-label="Close full screen view"
         >
           <HiOutlineX size={24} />
@@ -90,24 +90,22 @@ const Media = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen p-2 md:p-6">
-      <div className="flex-grow flex flex-col justify-center items-center">
-        <div className=" mx-auto">
-          <ImageWithSkeleton
-            src={media.mediaUrl}
-            alt="Media"
-            className="w-fit h-[50vh] md:h-[70vh] rounded-lg"
-            fallbackSrc="https://via.placeholder.com/800x600?text=Media+Not+Found"
-          />
-        </div>
-        <div className="flex gap-2 items-center py-2">
-          <div className="bg-black bg-opacity-35 text-white px-3 py-1.5 rounded-full flex items-center">
+    <div className="min-h-screen p-2 md:p-6 flex flex-col">
+      <div className="flex flex-col items-center">
+        <ImageWithSkeleton
+          src={media.mediaUrl}
+          alt="Media"
+          className="w-fit h-auto max-h-[80vh] rounded-xl mx-auto"
+          fallbackSrc="https://via.placeholder.com/800x600?text=Media+Not+Found"
+        />
+        <div className="flex gap-2 items-center mt-2">
+          <div className="bg-rose-50 text-rose-500 px-3 py-1.5 rounded-full flex items-center">
             <HiOutlineEye className="mr-2" />
             <span>{media.views}</span>
           </div>
           <button
             onClick={() => setIsFullScreen(true)}
-            className="text-white bg-black bg-opacity-35 rounded-full p-2 hover:bg-opacity-40 transition-colors"
+            className="bg-rose-50 text-rose-500 rounded-full p-2"
             aria-label="View full screen"
           >
             <HiOutlineZoomIn size={20} />
@@ -116,8 +114,8 @@ const Media = () => {
       </div>
 
       {media.additionalMedia && media.additionalMedia.length > 0 && (
-        <div className="relative">
-          <h2 className="text-gray-600 font-light text-lg mb-4">
+        <div className="mt-4">
+          <h2 className="text-gray-600 font-light text-lg mb-2">
             {media.collectionTitle
               ? `More from ${media.collectionTitle}`
               : "More from this collection"}
@@ -125,7 +123,7 @@ const Media = () => {
           <div className="relative">
             <button
               onClick={() => handleScroll("left")}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/80 text-white rounded-full p-2 z-10 ml-2"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/60 text-rose-500 rounded-full p-1 z-10 ml-2"
               aria-label="Scroll left"
             >
               <HiOutlineChevronLeft size={24} />
@@ -145,7 +143,7 @@ const Media = () => {
                     <ImageWithSkeleton
                       src={item.previewUrl}
                       alt="Additional media"
-                      className="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg hover:opacity-75 transition-opacity shadow-md"
+                      className="w-48 h-48 object-cover rounded-lg hover:opacity-75 transition-opacity shadow-md"
                       fallbackSrc="https://via.placeholder.com/160x160?text=Preview"
                     />
                   </div>
@@ -154,7 +152,7 @@ const Media = () => {
             </div>
             <button
               onClick={() => handleScroll("right")}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/80 text-white rounded-full p-2 z-10 mr-2"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/60 text-rose-500 rounded-full p-1 z-10 mr-2"
               aria-label="Scroll right"
             >
               <HiOutlineChevronRight size={24} />

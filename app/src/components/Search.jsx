@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ImageWithSkeleton from "../tools/ImageWithSkeleton";
 import { backend_url } from "../../config";
+import CircularLoading from "../tools/Loader";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -108,11 +109,8 @@ const Search = () => {
           ))}
         </div>
       )}
-      {loading && (
-        <div className="text-center text-gray-400 text-xs font-thin mt-4">
-          Searching...
-        </div>
-      )}
+
+      {loading && <CircularLoading />}
     </div>
   );
 };

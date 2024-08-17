@@ -6,6 +6,7 @@ import ImageWithSkeleton from "../tools/ImageWithSkeleton";
 import { HiOutlineEye, HiOutlinePhotograph } from "react-icons/hi";
 import short from "short-uuid";
 import { backend_url } from "../../config";
+import CircularLoading from "../tools/Loader";
 
 const Profile = () => {
   const { slug } = useParams();
@@ -95,21 +96,21 @@ const Profile = () => {
             />
 
             <div className="flex-grow text-center md:text-left">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 sm:mb-3 tracking-tight">
+              <h1 className="text-2xl sm:text-xl md:text-2xl  text-gray-800 tracking-tight">
                 {collection.title}
               </h1>
-              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 mb-2.5 leading-relaxed font-light">
                 {collection.description}
               </p>
-              <div className="flex justify-center md:justify-start text-xs sm:text-sm text-gray-600 space-x-3 sm:space-x-6">
-                <span className="flex items-center bg-gray-200 rounded-full px-3 py-1 sm:px-4 sm:py-2">
+              <div className="flex justify-center md:justify-start text-xs sm:text-sm text-rose-600 space-x-3 sm:space-x-6">
+                <span className="flex items-center bg-rose-50 rounded-full px-3 py-1 sm:px-4 sm:py-2">
                   <HiOutlineEye
                     className="mr-1 sm:mr-2 text-rose-500"
                     size={16}
                   />
                   {(collection.views || 0).toLocaleString()} views
                 </span>
-                <span className="flex items-center bg-gray-200 rounded-full px-3 py-1 sm:px-4 sm:py-2">
+                <span className="flex items-center bg-rose-50 rounded-full px-3 py-1 sm:px-4 sm:py-2">
                   <HiOutlinePhotograph
                     className="mr-1 sm:mr-2 text-rose-500"
                     size={16}
@@ -145,11 +146,9 @@ const Profile = () => {
           ))}
         </div>
       )}
-      {loading && (
-        <div className="text-center text-gray-400 text-xs font-thin mt-4 sm:mt-6 md:mt-8">
-          Loading...
-        </div>
-      )}
+
+      {loading && <CircularLoading />}
+
       <div ref={ref} style={{ height: "10px" }}></div>
     </div>
   );
