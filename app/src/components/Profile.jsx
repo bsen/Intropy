@@ -79,32 +79,40 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-2 sm:p-4 md:p-6">
       {collection ? (
-        <div className="mb-4 p-8">
-          <div className="flex flex-col gap-6 md:flex-row items-center">
+        <div className="mb-4 p-4">
+          <div className="flex flex-col gap-4 sm:gap-6 md:flex-row items-center">
             <img
               src={collection.imageUrl ? collection.imageUrl : "/xl.png"}
-              className="w-44 h-44 border-4 border-red-500 object-cover rounded-full shadow-md  z-10 bg-white"
-              fallbackSrc="https://via.placeholder.com/224x224?text=Collection+Image"
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 border-4 border-red-500 object-cover rounded-full shadow-md z-10 bg-white"
+              alt={collection.title}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://via.placeholder.com/224x224?text=Collection+Image";
+              }}
             />
 
-            <div className="flex-grow">
-              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">
+            <div className="flex-grow text-center md:text-left">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 sm:mb-3 tracking-tight">
                 {collection.title}
               </h1>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
                 {collection.description}
               </p>
-              <div className="flex justify-start text-sm text-gray-600 space-x-6">
-                <span className="flex items-center bg-gray-200 rounded-full px-4 py-2">
-                  <HiOutlineEye className="mr-2 text-rose-500" size={18} />
+              <div className="flex justify-center md:justify-start text-xs sm:text-sm text-gray-600 space-x-3 sm:space-x-6">
+                <span className="flex items-center bg-gray-200 rounded-full px-3 py-1 sm:px-4 sm:py-2">
+                  <HiOutlineEye
+                    className="mr-1 sm:mr-2 text-rose-500"
+                    size={16}
+                  />
                   {(collection.views || 0).toLocaleString()} views
                 </span>
-                <span className="flex items-center bg-gray-200 rounded-full px-4 py-2">
+                <span className="flex items-center bg-gray-200 rounded-full px-3 py-1 sm:px-4 sm:py-2">
                   <HiOutlinePhotograph
-                    className="mr-2 text-rose-500"
-                    size={18}
+                    className="mr-1 sm:mr-2 text-rose-500"
+                    size={16}
                   />
                   {collection.totalItems || 0} items
                 </span>
@@ -113,32 +121,32 @@ const Profile = () => {
           </div>
         </div>
       ) : (
-        <div className="text-center text-white">Loading collection...</div>
+        <div className="text-center text-gray-600">Loading collection...</div>
       )}
 
       {media.length === 0 && !loading ? (
-        <div className="text-center text-white">No media available</div>
+        <div className="text-center text-gray-600">No media available</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {media.map((item) => (
-            <Link to={`/media/${translator.fromUUID(item.id)}`} key={item.id}>
-              <div
-                key={item.id}
-                className="relative rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 group"
-              >
-                <ImageWithSkeleton
-                  src={item.previewUrl}
-                  alt={item.title}
-                  className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                  fallbackSrc="https://via.placeholder.com/400x400?text=Image+Not+Found"
-                />
-              </div>
+            <Link
+              to={`/media/${translator.fromUUID(item.id)}`}
+              key={item.id}
+              className="relative rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 group"
+            >
+              <ImageWithSkeleton
+                src={item.previewUrl}
+                alt={item.title}
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                fallbackSrc="https://via.placeholder.com/400x400?text=Image+Not+Found"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
             </Link>
           ))}
         </div>
       )}
       {loading && (
-        <div className="text-center text-gray-400 text-xs font-thin mt-2">
+        <div className="text-center text-gray-400 text-xs font-thin mt-4 sm:mt-6 md:mt-8">
           Loading...
         </div>
       )}

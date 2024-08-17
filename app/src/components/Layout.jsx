@@ -56,19 +56,28 @@ function Layout({ children }) {
           --color-primary: #e91e63;
           --color-primary-light: #f48fb1;
         }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
       `}</style>
+
+      {/* Sidebar */}
       <div
         className={`${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed inset-y-0 left-0 transform lg:relative lg:translate-x-0 transition duration-200 ease-in-out lg:flex lg:flex-col w-60 shadow-xl`}
+        } fixed inset-y-0 left-0 z-30 w-60 bg-white shadow-xl transition duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
       >
         <div className="flex flex-col h-full">
           <div className="flex-shrink-0">
             <div className="flex flex-col items-center justify-center py-4">
-              <h1 className="text-4xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600">
+              <h1 className="text-3xl lg:text-4xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600">
                 Xnudes
               </h1>
-              <p className="text-xs font-light text-gray-600 mt-1/2">
+              <p className="text-xs font-light text-gray-600 mt-1">
                 Explore the heat
               </p>
             </div>
@@ -86,20 +95,21 @@ function Layout({ children }) {
                 Search
               </NavLink>
             </nav>
-            <div className="mt-4 px-4">
+            <div className="mt-6 px-4">
               <h2 className="text-lg font-medium pb-2 text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600 border-b border-gray-200 text-center">
                 Top Models
               </h2>
             </div>
           </div>
-          <div className="flex-grow overflow-y-auto px-4 pt-4 pb-8 no-scrollbar">
+          <div className="flex-grow overflow-y-auto px-4 pt-2 pb-8 no-scrollbar">
             <ul className="space-y-2">
               {topModels.map((model) => (
                 <li key={model.id}>
                   <button
-                    onClick={() =>
-                      navigate(`/collection/${model.slug}`, { replace: true })
-                    }
+                    onClick={() => {
+                      navigate(`/collection/${model.slug}`, { replace: true });
+                      setIsMenuOpen(false);
+                    }}
                     className="w-full flex items-center space-x-3 text-gray-600 hover:text-white transition-colors duration-200 group"
                   >
                     <div className="relative">
@@ -120,19 +130,35 @@ function Layout({ children }) {
         </div>
       </div>
 
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="h-16 lg:hidden flex items-center px-6">
+        {/* Mobile Header */}
+        <header className="h-12 flex items-center justify-between px-4 bg-white shadow-md lg:hidden">
           <button
-            onClick={() => setIsMenuOpen(true)}
-            className="text-gray-600- focus:outline-none focus:text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-gray-600 focus:outline-none focus:text-rose-500"
           >
             <HiMenu className="w-6 h-6" />
           </button>
+          <h1 className="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600">
+            Xnudes
+          </h1>
+          <div className="w-6"></div> {/* Spacer for centering */}
         </header>
+
+        {/* Main Content */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gdark">
-          <div className="container mx-auto">{children}</div>
+          <div className="container mx-auto py-4">{children}</div>
         </main>
       </div>
+
+      {/* Overlay */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        ></div>
+      )}
     </div>
   );
 }

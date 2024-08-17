@@ -69,11 +69,11 @@ const AiImages = () => {
   }
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-2 sm:p-4 md:p-6">
       {media.length === 0 && !loading ? (
         <div className="text-center text-rose-500">No content available</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {media.map((item) => (
             <Link
               to={`/media/${translator.fromUUID(item.id)}`}
@@ -83,15 +83,16 @@ const AiImages = () => {
               <ImageWithSkeleton
                 src={item.previewUrl}
                 alt="Media preview"
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                 fallbackSrc="https://via.placeholder.com/400x400?text=Image+Not+Found"
               />
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
             </Link>
           ))}
         </div>
       )}
       {loading && (
-        <div className="text-center text-gray-400 text-xs font-thin mt-8">
+        <div className="text-center text-gray-400 text-xs font-thin mt-4 sm:mt-6 md:mt-8">
           Loading more...
         </div>
       )}

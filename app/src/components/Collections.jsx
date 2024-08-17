@@ -70,13 +70,13 @@ const Collections = () => {
   }
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-2 sm:p-4 md:p-6">
       {collections.length === 0 && !loading ? (
         <div className="text-center text-rose-500">
           No collections available
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {collections.map((item) => (
             <Link
               key={item.id}
@@ -86,19 +86,22 @@ const Collections = () => {
               <ImageWithSkeleton
                 src={item.mostViewedMedia?.previewUrl || item.imageUrl}
                 alt={item.title || "Collection preview"}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                 fallbackSrc="https://via.placeholder.com/400x400?text=Image+Not+Found"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 flex items-center space-x-3">
-                {item.imageUrl && (
-                  <img
-                    src={item.imageUrl ? item.imageUrl : "/xs.png"}
-                    className="w-8 h-8 rounded-full object-cover border border-white bg-white"
-                  />
-                )}
-                <span className="text-white text-md font-semibold truncate">
-                  {item.title || "Untitled Collection"}
-                </span>
+              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="flex items-center space-x-2">
+                  {item.imageUrl && (
+                    <img
+                      src={item.imageUrl || "/xs.png"}
+                      alt={item.title || "Collection"}
+                      className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full object-cover border border-white bg-white"
+                    />
+                  )}
+                  <span className="text-white text-xs sm:text-sm md:text-md font-semibold truncate">
+                    {item.title || "Untitled Collection"}
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
