@@ -325,22 +325,30 @@ app.get("/api/collections", cache, async (req, res) => {
   try {
     const cursor = parseInt(req.query.cursor) || 0;
     const limit = 20;
+    const subquery = `(
+      SELECT "mediaId", "collectionId", "previewUrl"
+      FROM (
+        SELECT "id" as "mediaId", "collectionId", "previewUrl",
+               ROW_NUMBER() OVER (PARTITION BY "collectionId" ORDER BY "views" DESC) as rn
+        FROM "Media"
+      ) ranked
+      WHERE rn = 1
+    )`;
 
-    const collections = await Collection.findAll({
-      attributes: ["id", "title", "slug", "imageUrl", "views"],
-      include: [
-        {
-          model: Media,
-          attributes: ["id", "previewUrl"],
-          limit: 1,
-          order: [["views", "DESC"]],
-          separate: true,
-        },
-      ],
-      order: [["views", "DESC"]],
-      limit: limit + 1,
-      offset: cursor,
-    });
+    const collections = await sequelize.query(
+      `
+      SELECT c.id, c.title, c.slug, c."imageUrl", c.views, 
+             m."mediaId" as "mostViewedMediaId", m."previewUrl" as "mostViewedMediaPreviewUrl"
+      FROM "Collections" c
+      LEFT JOIN ${subquery} m ON c.id = m."collectionId"
+      ORDER BY c.views DESC
+      LIMIT :limit OFFSET :offset
+    `,
+      {
+        replacements: { limit: limit + 1, offset: cursor },
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
 
     const formattedCollections = collections
       .slice(0, limit)
@@ -350,13 +358,12 @@ app.get("/api/collections", cache, async (req, res) => {
         slug: collection.slug,
         imageUrl: collection.imageUrl,
         views: collection.views,
-        mostViewedMedia:
-          collection.Media.length > 0
-            ? {
-                id: collection.Media[0].id,
-                previewUrl: collection.Media[0].previewUrl,
-              }
-            : null,
+        mostViewedMedia: collection.mostViewedMediaId
+          ? {
+              id: collection.mostViewedMediaId,
+              previewUrl: collection.mostViewedMediaPreviewUrl,
+            }
+          : null,
       }));
 
     const hasMore = collections.length > limit;
