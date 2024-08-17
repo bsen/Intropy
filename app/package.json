@@ -22,7 +22,8 @@
     "react-router-dom": "^6.26.0",
     "react-virtualized-auto-sizer": "^1.0.24",
     "react-window": "^1.8.10",
-    "short-uuid": "^5.2.0"
+    "short-uuid": "^5.2.0",
+    "vercel": "^36.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
