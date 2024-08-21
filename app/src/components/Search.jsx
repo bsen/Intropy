@@ -32,7 +32,6 @@ const Search = () => {
         !response.data.collections ||
         response.data.collections.length === 0
       ) {
-        setError("No collections found.");
         setCollections([]);
       } else {
         setCollections(response.data.collections);
