@@ -33,7 +33,10 @@ const redisClient = createClient({
 });
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
-redisClient.connect();
+redisClient.on("connect", () => console.log("Redis Client Connected"));
+redisClient.on("ready", () => console.log("Redis Client Ready"));
+
+redisClient.connect().catch(console.error);
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
