@@ -19,7 +19,7 @@ const Collection = sequelize.define("Collection", {
     unique: true,
     validate: {
       notEmpty: true,
-      is: /^[a-z0-9_-]+$/i,
+      is: /^[a-z0-9_\-.]+$/i,
     },
   },
   title: {
