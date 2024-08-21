@@ -1,1 +1,1 @@
-export const backend_url = "https://www.server.xnudes.live";
+export const backend_url = "http://localhost:8080";

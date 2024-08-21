@@ -114,7 +114,7 @@ function Layout({ children }) {
                   >
                     <div className="relative">
                       <img
-                        src={model.imageUrl || "/api/placeholder/40/40"}
+                        src={model.imageUrl || "/xs.png"}
                         alt={model.title}
                         className="w-10 h-10 rounded-full object-cover border-2 border-transparent group-hover:border-rose-500 transition-colors duration-200"
                       />
