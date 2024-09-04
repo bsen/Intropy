@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { Collection, Media, sequelize } = require("./models/schema");
+const { Collection, Media, sequelize } = require("./groups/schema");
 const { createClient } = require("redis");
 const rateLimit = require("express-rate-limit");
 const short = require("short-uuid");
@@ -157,15 +157,15 @@ app.get("/api/ai-images", cache, async (req, res, next) => {
   }
 });
 
-app.get("/api/top-models", cache, async (req, res, next) => {
+app.get("/api/top-groups", cache, async (req, res, next) => {
   try {
-    const topModels = await Collection.findAll({
+    const topgroups = await Collection.findAll({
       attributes: ["id", "title", "imageUrl", "slug"],
       order: [["views", "DESC"]],
       limit: 20,
     });
 
-    res.json(topModels);
+    res.json(topgroups);
   } catch (error) {
     next(error);
   }

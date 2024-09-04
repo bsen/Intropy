@@ -14,21 +14,21 @@ import {
 
 function Layout({ children }) {
   const navigate = useNavigate();
-  const [topModels, setTopModels] = useState([]);
+  const [topGroups, setTopGroups] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    fetchTopModels();
+    fetchtopGroups();
   }, []);
 
-  const fetchTopModels = async () => {
+  const fetchtopGroups = async () => {
     try {
-      const response = await axios.get(`${backend_url}/api/top-models`);
+      const response = await axios.get(`${backend_url}/api/top-groups`);
       console.log(response.data);
-      setTopModels(response.data);
+      setTopGroups(response.data);
     } catch (error) {
-      console.error("Error fetching top models:", error);
+      console.error("Error fetching top groups:", error);
     }
   };
 
@@ -75,7 +75,7 @@ function Layout({ children }) {
           <div className="flex-shrink-0">
             <div className="flex flex-col items-center justify-center py-4">
               <h1 className="text-3xl lg:text-4xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600">
-                Xnudes
+                intropy
               </h1>
               <p className="text-xs font-light text-gray-600 mt-1">
                 Explore the heat
@@ -97,13 +97,13 @@ function Layout({ children }) {
             </nav>
             <div className="mt-6 px-4">
               <h2 className="text-lg font-medium pb-2 text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600 border-b border-gray-200 text-center">
-                Top Models
+                Top groups
               </h2>
             </div>
           </div>
           <div className="flex-grow overflow-y-auto px-4 pt-2 pb-8 no-scrollbar">
             <ul className="space-y-2">
-              {topModels.map((model) => (
+              {topGroups.map((model) => (
                 <li key={model.id}>
                   <button
                     onClick={() => {
@@ -139,7 +139,7 @@ function Layout({ children }) {
             <HiMenu className="w-6 h-6" />
           </button>
           <h1 className="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-600">
-            Xnudes
+            Intropy
           </h1>
           <div className="w-6"></div>
         </header>
